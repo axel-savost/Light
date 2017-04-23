@@ -27,6 +27,7 @@ def update(dt):
 @window.event
 def on_draw():
     window.clear()
+    bg.draw()
     label.draw()
     bulb.draw()
 
@@ -60,6 +61,9 @@ def on_key_release(symbol, modifiers):
 # Actual code
 bulb_img = pyglet.resource.image('Sprites/Lightbulb.png')
 bulb     = pyglet.sprite.Sprite(bulb_img,64,64)
+
+bg_img   = pyglet.resource.image('Sprites/BG_Grass.png')
+bg       = pyglet.sprite.Sprite(bg_img,0,0)
 
 label = pyglet.text.Label('Light engine',
                       font_name='Times New Roman',
