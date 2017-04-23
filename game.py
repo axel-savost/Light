@@ -1,4 +1,5 @@
 import pyglet
+from pyglet.window import key
 
 print "Welcome to the Pyglet powered Light Engine!"
 
@@ -8,8 +9,9 @@ GAME_HEIGHT = 480
 GAME_FPS    = 30
 
 # Variables
-x           = 0
-mod         = 1 
+dx          = 0
+dy          = 0
+speed       = 1
 
 # Define window
 window = pyglet.window.Window()
@@ -17,12 +19,9 @@ window = pyglet.window.Window()
 
 # Functions
 def update(dt):
-    global mod
-    bulb.x += mod
-    if bulb.x > GAME_WIDTH-32:
-        mod = -1
-    if bulb.x < 0:
-        mod = 1
+    global dx, dy
+    bulb.x += dx
+    bulb.y += dy
     
     
 @window.event
@@ -30,6 +29,33 @@ def on_draw():
     window.clear()
     label.draw()
     bulb.draw()
+
+@window.event
+def on_key_press(symbol, modifiers):
+    global dx, dy
+    if symbol == key.SPACE:
+        label.x = 0
+        print "This works"
+    if symbol == key.W:
+        dy = speed
+    if symbol == key.S:
+        dy = -1 * speed
+    if symbol == key.D:
+        dx = speed
+    if symbol == key.A:
+        dx = -1 * speed
+
+@window.event        
+def on_key_release(symbol, modifiers):
+    global dx, dy
+    if symbol == key.W:
+        dy = 0
+    if symbol == key.S:
+        dy = 0
+    if symbol == key.D:
+        dx = 0
+    if symbol == key.A:
+        dx = 0
 
 # Actual code
 bulb_img = pyglet.resource.image('Sprites/Lightbulb.png')
